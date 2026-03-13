@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Germano Arte</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="container header-content">
+            <h1 class="logo">Germano <span>Arte</span></h1>
+
+            <nav class="menu">
+                <a href="#home">Home</a>
+                <a href="#colecao">Coleção</a>
+                <a href="#sobre">Sobre</a>
+                <a href="#contato">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <h2>Coleção Germano Arte</h2>
+            <p>Arte em seda que transforma elegância em expressão.</p>
+            <a href="#colecao" class="btn">Ver Coleção</a>
+        </div>
+    </section>
+
+    <section class="colecao" id="colecao">
+        <div class="container">
+            <div class="section-title">
+                <span></span>
+                <h2>A Coleção</h2>
+                <span></span>
+            </div>
+
+            <div class="carousel-wrapper">
+                <button class="carousel-btn prev" id="prevBtn" aria-label="Voltar">❮</button>
+                <div class="carousel" id="carousel"></div>
+                <button class="carousel-btn next" id="nextBtn" aria-label="Avançar">❯</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="sobre" id="sobre">
+        <div class="container sobre-content">
+            <div class="sobre-imagem">
+                <img src="artista.jpg" alt="Foto do artista Germano" />
+            </div>
+
+            <div class="sobre-texto">
+                <div class="section-title left">
+                    <h2>Sobre o Artista</h2>
+                    <span></span>
+                </div>
+
+                <p>
+                    Germano Vieira, artista plástico, criador da coleção Germano Arte.
+                    Seu trabalho transforma cores, formas, texturas e referências da natureza
+                    em estampas autorais para um catálogo sofisticado e contemporâneo.
+                </p>
+
+                <a href="#contato" class="btn">Saiba Mais</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="contato" id="contato">
+        <div class="container">
+            <div class="section-title">
+                <span></span>
+                <h2>Contato</h2>
+                <span></span>
+            </div>
+
+            <div class="contact-grid">
+                <a class="contact-card" href="#" target="_blank">WhatsApp</a>
+                <a class="contact-card" href="#" target="_blank">Instagram</a>
+                <a class="contact-card" href="mailto:contato@seudominio.com">E-mail</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <p>© 2024 Germano Arte | Catálogo de Estampas</p>
+        </div>
+    </footer>
+
+    <div class="modal" id="modal">
+        <span class="close" id="closeModal">&times;</span>
+        <img class="modal-img" id="modalImg" alt="Estampa ampliada">
+        <p class="modal-code" id="modalCode"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
