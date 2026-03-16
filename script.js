@@ -116,7 +116,7 @@ const closeModal = document.getElementById("closeModal");
 
 function abrirModal(codigo) {
   modal.classList.add("show");
-  modalImg.src = `estampas/${codigo}.png`;
+  modalImg.src = `images/${codigo}.png`;
   modalCode.textContent = codigo;
 }
 
@@ -132,7 +132,7 @@ function criarCard(codigo) {
 
   card.innerHTML = `
     <div class="card-image">
-      <img src="estampas/${codigo}.png" alt="${codigo}" loading="lazy">
+      <img src="images/${codigo}.png" alt="${codigo}" loading="lazy">
     </div>
     <div class="card-info">
       <span class="card-code">${codigo}</span>
