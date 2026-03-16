@@ -1,108 +1,15 @@
 const estampas = [
-  "ACG-004",
-  "ACG-005",
-  "ACG-006",
-  "ACG-007",
-  "ACG-008",
-  "ACG-009",
-  "ACG-012A",
-  "ACG-013",
-  "ACG-014",
-  "ACG-015A",
-  "ACG-016",
-  "ACG-017",
-  "ACG-018",
-  "ACG-019A",
-  "ACG-019B",
-  "ACG-020",
-  "ACG-021A",
-  "ACG-021B",
-  "ACG-022",
-  "ACG-023",
-  "ACG-024",
-  "ACG-025A",
-  "ACG-025B",
-  "ACG-026A",
-  "ACG-027A",
-  "ACG-028",
-  "ACG-029",
-  "ACG-030",
-  "ACG-031A",
-  "ACG-031B",
-  "ACG-032A",
-  "ACG-032B",
-  "ACG-033",
-  "ACG-034A",
-  "ACG-034B",
-  "ACG-034C",
-  "ACG-035",
-  "ACG-035B",
-  "ACG-036",
-  "ACG-037A",
-  "ACG-038",
-  "ACG-039A",
-  "ACG-040A",
-  "ACG-040B",
-  "ACG-041A",
-  "ACG-042A",
-  "ACG-043A",
-  "ACG-043B",
-  "ACG-044",
-  "ACG-045",
-  "ACG-046A",
-  "ACG-046B",
-  "ACG-047",
-  "ACG-048",
-  "ACG-049",
-  "ACG-050A",
-  "ACG-050B",
-  "ACG-052",
-  "ACG-053A",
-  "ACG-056A",
-  "ACG-056B",
-  "ACG-056C",
-  "ACG-057A",
-  "ACG-057B",
-  "ACG-058B",
-  "ACG-058D",
-  "ACG-059A",
-  "ACG-059C",
-  "ACG-060",
-  "ACG-061A",
-  "ACG-062A",
-  "ACG-063A",
-  "ACG-063B",
-  "ACG-063C",
-  "ACG-064A",
-  "ACG-064B",
-  "ACG-065A",
-  "ACG-065B",
-  "ACG-066A",
-  "ACG-066B",
-  "ACG-066C",
-  "ACG-067A",
-  "ACG-067B",
-  "ACG-067C",
-  "ACG-068",
-  "ACG-068A",
-  "ACG-068B",
-  "ACG-069A",
-  "ACG-069B",
-  "ACG-069C",
-  "ACG-070A",
-  "ACG-070B",
-  "ACG-070C",
-  "ACG-071",
-  "ACG-072A",
-  "ACG-072B",
-  "ACG-073A",
-  "ACG-073B",
-  "ACG-073C",
-  "ACG-074B",
-  "ACG-074C",
-  "ACG-075A",
-  "ACG-075B",
-  "ACG-075C"
+  "ACG-004", "ACG-005", "ACG-006", "ACG-007", "ACG-008", "ACG-009", "ACG-012", "ACG-013", "ACG-014", "ACG-015",
+  "ACG-016", "ACG-017", "ACG-018", "ACG-019", "ACG-019B", "ACG-020", "ACG-021A", "ACG-021B", "ACG-022", "ACG-023",
+  "ACG-024", "ACG-025A", "ACG-025B", "ACG-026", "ACG-027", "ACG-028", "ACG-029", "ACG-030", "ACG-031A", "ACG-031B",
+  "ACG-032A", "ACG-032B", "ACG-033", "ACG-034A", "ACG-034B", "ACG-034C", "ACG-035", "ACG-035B", "ACG-036", "ACG-037",
+  "ACG-038", "ACG-039", "ACG-040", "ACG-040B", "ACG-041", "ACG-042", "ACG-043A", "ACG-043B", "ACG-044", "ACG-045",
+  "ACG-046A", "ACG-046B", "ACG-047", "ACG-048", "ACG-049", "ACG-050A", "ACG-050B", "ACG-052", "ACG-053", "ACG-056A",
+  "ACG-056B", "ACG-056C", "ACG-057A", "ACG-057B", "ACG-057C", "ACG-058A", "ACG-058B", "ACG-058C", "ACG-058D", "ACG-059A",
+  "ACG-059B", "ACG-060", "ACG-061", "ACG-062", "ACG-063A", "ACG-063B", "ACG-063C", "ACG-064A", "ACG-064B", "ACG-065A",
+  "ACG-065B", "ACG-066A", "ACG-066B", "ACG-066C", "ACG-067A", "ACG-067B", "ACG-067C", "ACG-068", "ACG-068A", "ACG-068B",
+  "ACG-069A", "ACG-069B", "ACG-069C", "ACG-070A", "ACG-070B", "ACG-070C", "ACG-071", "ACG-072A", "ACG-072B", "ACG-073A",
+  "ACG-073B", "ACG-073C", "ACG-074A", "ACG-074B", "ACG-074C", "ACG-075A", "ACG-075B", "ACG-075C"
 ];
 
 const carousel = document.getElementById("carousel");
@@ -113,6 +20,8 @@ const modal = document.getElementById("modal");
 const modalImg = document.getElementById("modalImg");
 const modalCode = document.getElementById("modalCode");
 const closeModal = document.getElementById("closeModal");
+
+const scrollThumb = document.getElementById("scrollThumb");
 
 function abrirModal(codigo) {
   modal.classList.add("show");
@@ -138,21 +47,19 @@ function criarCard(codigo) {
       <span class="card-code">${codigo}</span>
     </div>
   `;
-
-  const img = card.querySelector("img");
-  img.addEventListener("click", () => abrirModal(codigo));
-
-  return card;
+  
+  carousel.appendChild(card);
 }
 
-estampas.forEach((codigo) => {
-  carousel.appendChild(criarCard(codigo));
-});
+// Inicializar os cards da coleção
+estampas.forEach(codigo => criarCard(codigo));
 
 function getScrollAmount() {
-  const card = document.querySelector(".card");
-  if (!card) return 300;
-  return card.offsetWidth + 24;
+  const card = document.querySelector('.card');
+  if (card) {
+    return card.offsetWidth + 24; // Largura + espaçamento (gap)
+  }
+  return 284;
 }
 
 prevBtn.addEventListener("click", () => {
@@ -182,3 +89,101 @@ document.addEventListener("keydown", (e) => {
     fecharModal();
   }
 });
+
+// Lógica da Barra de Rolagem Personalizada
+function updateScrollThumbPosition() {
+  const scrollPosition = carousel.scrollLeft;
+  const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+  const scrollbarContainer = scrollThumb.parentElement;
+  
+  if (maxScrollLeft > 0) {
+    const scrollPercentage = scrollPosition / maxScrollLeft;
+    // Usa a largura real do container da barra em vez da largura do carrossel
+    const thumbMaxLeft = scrollbarContainer.clientWidth - scrollThumb.offsetWidth;
+    const thumbLeft = scrollPercentage * thumbMaxLeft;
+    
+    scrollThumb.style.left = `${thumbLeft}px`;
+  }
+}
+
+function updateScrollThumbSize() {
+  const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+  const scrollbarContainer = scrollThumb.parentElement;
+  
+  if (maxScrollLeft <= 0) {
+    scrollThumb.style.display = "none";
+  } else {
+    scrollThumb.style.display = "block";
+    // Proporção da área visível em relação à área total rolável
+    const visibleRatio = carousel.clientWidth / carousel.scrollWidth;
+    // Define a largura do thumb (puxador) com base na largura real do container
+    const thumbWidth = Math.max(50, visibleRatio * scrollbarContainer.clientWidth);
+    scrollThumb.style.width = `${thumbWidth}px`;
+  }
+  
+  updateScrollThumbPosition();
+}
+
+// Atualizar a barra durante a rolagem normal
+carousel.addEventListener("scroll", updateScrollThumbPosition);
+window.addEventListener("resize", updateScrollThumbSize);
+
+// Funcionalidade de arraste (drag) para a barra de rolagem customizada
+let isDragging = false;
+let startX;
+let startScrollLeft;
+
+scrollThumb.addEventListener("mousedown", (e) => {
+  isDragging = true;
+  startX = e.pageX;
+  startScrollLeft = carousel.scrollLeft;
+  
+  scrollThumb.style.cursor = "grabbing";
+  carousel.classList.add("dragging");
+  e.preventDefault();
+});
+
+window.addEventListener("mouseup", () => {
+  if (isDragging) {
+    isDragging = false;
+    scrollThumb.style.cursor = "grab";
+    carousel.classList.remove("dragging");
+  }
+});
+
+window.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
+  e.preventDefault();
+  
+  const walk = e.pageX - startX;
+  
+  // Converte o movimento em pixels do thumb para a rolagem proporcional do carrossel
+  const thumbMaxLeft = scrollThumb.parentElement.clientWidth - scrollThumb.offsetWidth;
+  const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth;
+  
+  const scrollDelta = (walk / thumbMaxLeft) * maxScrollLeft;
+  
+  carousel.scrollLeft = startScrollLeft + scrollDelta;
+});
+
+// Inicializa as propriedades do thumb após a renderização dos elementos
+setTimeout(updateScrollThumbSize, 100);
+
+// === Inicialização do GSAP ScrollSmoother ===
+document.addEventListener("DOMContentLoaded", () => {
+  // Verifica se o GSAP e o plugin ScrollSmoother foram carregados
+  if (typeof gsap !== "undefined" && typeof ScrollSmoother !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+    
+    // Criação do ScrollSmoother
+    ScrollSmoother.create({
+      wrapper: "#smooth-wrapper",
+      content: "#smooth-content",
+      smooth: 1.8, // DURAÇÃO DA SUAVIDADE EM SEGUNDOS - Altere aqui a velocidade
+      effects: true,
+      smoothTouch: 0.1,
+    });
+  }
+});
+
+
