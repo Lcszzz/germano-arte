@@ -1,500 +1,502 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0;         /* Remove as margens automáticas de todos os elementos para evitar espaços indesejados */
+    padding: 0;        /* Remove os preenchimentos internos automáticos para controle total do layout */
+    box-sizing: border-box; /* Garante que 'padding' e 'border' não aumentem o tamanho total do elemento */
 }
 
 html {
     /* O ScrollSmoother lida com o comportamento de rolagem, evitamos conflitos nativos */
-    overflow-x: hidden;
+    overflow-x: hidden; /* Esconde a barra de rolagem horizontal para evitar que o site "dance" para os lados */
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background: #ffffff;
-    color: #111;
-    overflow-x: hidden;
-    margin: 0;
+    font-family: 'Inter', sans-serif; /* Define a fonte principal para o texto corrido, garantindo leitura moderna */
+    background: #ffffff;             /* Define a cor de fundo da página inteira como branco puro */
+    color: #111;                      /* Define a cor padrão dos textos como um cinza escuro elegante */
+    overflow-x: hidden;               /* Reforça a proibição de rolagem horizontal no corpo do site */
+    margin: 0;                        /* Garante que o corpo do site encoste nas bordas da janela */
 }
 
-#smooth-wrapper {
-    overflow: hidden;
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+#smooth-wrapper {    /* Container fundamental para o GSAP ScrollSmoother funcionar */
+    overflow: hidden; /* Mantém o conteúdo que sobra escondido para ser controlado via JavaScript */
+    position: fixed;  /* Fixa o container na tela para aplicar o efeito de suavidade por cima */
+    height: 100vh;    /* Faz o container ter exatamente a altura total da tela do navegador */
+    width: 100vw;     /* Faz o container ter exatamente a largura total da janela */
+    top: 0;           /* Alinha o topo do container com o topo da janela */
+    left: 0;          /* Alinha a esquerda do container com a esquerda da janela */
+    right: 0;         /* Alinha a direita do container */
+    bottom: 0;        /* Alinha a base do container */
 }
 
-#smooth-content {
-    overflow: visible;
-    width: 100%;
+#smooth-content {    /* Div que carrega o conteúdo real e recebe o movimento suave */
+    overflow: visible; /* Permite que os elementos apareçam conforme o "trilho" se move */
+    width: 100%;       /* Garante que o conteúdo ocupe toda a largura disponível */
 }
 
 img {
-    display: block;
-    max-width: 100%;
+    display: block;    /* Transforma a imagem em bloco para remover um pequeno espaço vazio abaixo dela */
+    max-width: 100%;   /* Impede que as imagens fiquem maiores que o tamanho da tela do usuário */
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none; /* Remove o sublinhado azul padrão dos links, deixando o visual mais limpo */
 }
 
-.container {
-    width: min(1240px, 92%);
-    margin: 0 auto;
+.container {           /* Estrutura central que segura o conteúdo no meio da página */
+    width: min(1240px, 92%); /* Se a tela for maior que 1240px, fixa este tamanho; se menor, ocupa 92% */
+    margin: 0 auto;          /* Distribui o espaço sobrando igualmente nos lados, centralizando tudo */
 }
 
-/* CABEÇALHO */
+/* CABEÇALHO (Menu Superior) */
 .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: #ffffff;
-    border-bottom: 1px solid #ececec;
+    position: sticky;  /* Faz o menu "grudar" no topo quando o usuário começa a descer a página */
+    top: 0;            /* Define que o menu deve grudar exatamente no ponto zero superior */
+    z-index: 1000;     /* Coloca o menu em uma camada visual acima de todo o resto do conteúdo */
+    background: #ffffff; /* Define o fundo do menu como branco para não ficar transparente */
+    border-bottom: 1px solid #ececec; /* Desenha uma linha cinza muito sutil na parte de baixo do cabeçalho */
 }
 
 .header-content {
-    min-height: 84px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+    min-height: 84px;  /* Define a altura mínima do menu para ele ter uma presença elegante */
+    display: flex;     /* Ativa o modo de organização flexível para os itens internos */
+    align-items: center; /* Centraliza verticalmente a logo e os links do menu */
+    justify-content: space-between; /* Afasta a logo para a esquerda e os links para a direita */
+    gap: 20px;         /* Garante um espaço mínimo de 20 pixels se os itens chegarem perto */
 }
 
 .logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    font-weight: 400;
-    color: #222;
+    font-family: 'Playfair Display', serif; /* Usa uma fonte clássica e sofisticada para o nome da marca */
+    font-size: 2rem;   /* Define um tamanho de letra grande e chamativo para a marca */
+    font-weight: 400;  /* Deixa o peso da letra normal (não negrito) para um ar artístico */
+    color: #222;       /* Cor da logo em grafite escuro */
 }
 
 .logo span {
-    font-style: italic;
+    font-style: italic; /* Inclina o texto da palavra "Arte" para diferenciar da marca principal */
 }
 
 .menu {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    flex-wrap: wrap;
+    display: flex;     /* Organiza os itens do menu um ao lado do outro horizontalmente */
+    align-items: center; /* Garante que os textos do menu fiquem na mesma linha da logo */
+    gap: 28px;         /* Espaçamento entre cada palavra do menu (Home, Coleção, etc) */
+    flex-wrap: wrap;   /* Permite que o menu se organize se a tela for muito estreita */
 }
 
 .menu a {
-    color: #333;
-    font-weight: 500;
-    position: relative;
-    transition: 0.3s;
+    color: #333;       /* Cor cinza escura para os links do menu */
+    font-weight: 500;  /* Deixa a letra um pouco mais gordinha que o normal */
+    position: relative; /* Base necessária para posicionar a linha rosa que aparece embaixo */
+    transition: 0.3s;  /* Faz a mudança de cor durar 0.3 segundos, tornando o movimento suave */
 }
 
 .menu a:hover {
-    color: #c64a87;
+    color: #c64a87;    /* Altera a cor para o rosa característico ao passar o mouse */
 }
 
-.menu a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -8px;
-    width: 0;
-    height: 2px;
-    background: #c64a87;
-    transition: 0.3s;
+.menu a::after {       /* Cria um elemento invisível logo abaixo de cada link */
+    content: "";       /* Necessário para que o elemento exista */
+    position: absolute; /* Coloca a linha exatamente onde quisermos em relação ao texto */
+    left: 0;           /* Começa alinhado à esquerda do texto */
+    bottom: -8px;      /* Desce 8 pixels para não ficar colado na letra */
+    width: 0;          /* Começa com largura zero para ficar invisível */
+    height: 2px;       /* Define a espessura da linha decorativa */
+    background: #c64a87; /* Define a cor da linha como o rosa da marca */
+    transition: 0.3s;  /* Faz a linha crescer suavemente em 0.3 segundos */
 }
 
 .menu a:hover::after {
-    width: 100%;
+    width: 100%;      /* No hover, a linha cresce até ocupar toda a largura do link */
 }
 
-/* HERO (Destaque Principal) */
+/* HERO (Banner de Destaque Principal) */
 .hero {
-    position: relative;
-    min-height: 88vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #fff;
-    overflow: hidden;
-    background-color: #0b0b0b;
+    position: relative; /* Base para posicionar a sombra escurecida e o texto central */
+    min-height: 88vh;      /* Define que o banner ocupa quase a tela inteira (88% da altura) */
+    display: flex;      /* Permite centralizar o texto no meio da imagem */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    text-align: center; /* Garante que as linhas de texto fiquem centralizadas entre si */
+    color: #fff;        /* Define a cor de todas as letras do banner como branco */
+    overflow: hidden;   /* Garante que nada saia fora dos limites deste banner */
+    background-color: #0b0b0b; /* Cor de fundo preta preventiva enquanto a imagem carrega */
 }
 
-.hero-overlay {
-    position: absolute;
-    inset: 0;
-    /* Overlay clássico escuro para contraste do texto branco */
+.hero-overlay {         /* Camada de cor semitransparente por cima da foto do banner */
+    position: absolute; /* Cobre todo o espaço da seção Hero */
+    inset: 0;           /* Atalho para top, bottom, left e right em zero */
+    /* Cria um degradê suave do claro ao escuro para destacar o texto */
     background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
-    z-index: 2;
+    z-index: 2;         /* Coloca a sombra na camada 2 (acima da foto) */
 }
 
 .hero-content {
-    position: relative;
-    z-index: 3;
-    max-width: 900px;
-    padding: 20px;
+    position: relative; /* Garante que o texto fique acima do overlay escuro */
+    z-index: 3;         /* Coloca o texto na camada 3 (acima de tudo no banner) */
+    max-width: 900px;  /* Limita a largura do texto para não ficar comprido demais no PC */
+    padding: 20px;      /* Espaço de segurança para o texto não encostar nas bordas */
 }
 
 .hero-content h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.8rem, 6vw, 5rem);
-    font-weight: 400;
-    margin-bottom: 18px;
+    font-family: 'Playfair Display', serif; /* Usa a fonte clássica de luxo no título principal */
+    font-size: clamp(2.8rem, 6vw, 5rem); /* Tecnologia que diminui a letra no celular e aumenta no monitor */
+    font-weight: 400;   /* Peso normal para manter a elegância da fonte clássica */
+    margin-bottom: 18px; /* Espaço para não ficar colado no texto de baixo */
 }
 
 .hero-content p {
-    font-size: clamp(1rem, 2vw, 1.35rem);
-    margin-bottom: 30px;
+    font-size: clamp(1rem, 2vw, 1.35rem); /* Ajusta dinamicamente o tamanho do subtítulo */
+    margin-bottom: 30px; /* Distância generosa para o botão ganhar destaque */
 }
 
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 190px;
-    padding: 14px 30px;
-    border: none;
-    border-radius: 8px;
-    background: #c64a87;
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: 0.3s;
+.btn {                  /* Estilo principal do botão chamativo (CTA) */
+    display: inline-flex; /* Permite controlar o tamanho e alinhar texto interno */
+    align-items: center; /* Centraliza o texto do botão verticalmente */
+    justify-content: center; /* Centraliza o texto do botão horizontalmente */
+    min-width: 190px;   /* Define um tamanho mínimo para o botão não ficar pequeno demais */
+    padding: 14px 30px; /* Espaço interno para o botão parecer "gordinho" e confortável */
+    border: none;       /* Remove a borda padrão feia do navegador */
+    border-radius: 8px; /* Arredonda as quinas do botão para um visual moderno */
+    background: #c64a87; /* Cor rosa vibrante da marca */
+    color: #fff;        /* Texto dentro do botão sempre branco */
+    font-size: 1rem;    /* Tamanho padrão de leitura para botões */
+    font-weight: 600;   /* Deixa a letra do botão um pouco mais forte (semi-negrito) */
+    transition: 0.3s;   /* Suaviza as mudanças visuais ao interagir */
 }
 
 .btn:hover {
-    background: #aa3d71;
-    transform: translateY(-2px);
+    background: #aa3d71;       /* Cor rosa mais madura e escura ao passar o mouse */
+    transform: translateY(-2px); /* Faz o botão subir levemente, dando sensação de clique */
 }
 
 /* TÍTULOS DE SEÇÃO */
 .section-title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
-    margin-bottom: 42px;
+    display: flex;     /* Ativa flex para alinhar as linhas decorativas com o texto */
+    align-items: center; /* Alinha as linhas no meio da altura das letras */
+    justify-content: center; /* Centraliza o grupo (linha-texto-linha) no meio do site */
+    gap: 18px;         /* Espaço entre as linhas e as palavras do título */
+    margin-bottom: 42px; /* Distância do título para as fotos ou textos abaixo */
 }
 
 .section-title.left {
-    justify-content: flex-start;
+    justify-content: flex-start; /* Alinha o título à esquerda se esta classe for usada */
 }
 
-.section-title span {
-    flex: 1;
-    max-width: 320px;
-    height: 1px;
-    background: #d7d7d7;
+.section-title span {  /* Desenha as linhas horizontais finas ao lado dos títulos */
+    flex: 1;           /* Faz a linha esticar até onde houver espaço livre */
+    max-width: 320px;  /* Limita o tamanho máximo da linha para não cruzar o site todo */
+    height: 1px;       /* Deixa a linha com apenas 1 pixel de espessura (super discreta) */
+    background: #d7d7d7; /* Cor cinza clara para a linha decorativa */
 }
 
 .section-title h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 3.8vw, 3rem);
-    font-weight: 400;
-    color: #333;
-    white-space: nowrap;
+    font-family: 'Playfair Display', serif; /* Reforça a fonte de título do site */
+    font-size: clamp(2rem, 3.8vw, 3rem); /* Tamanho adaptável para todos os dispositivos */
+    font-weight: 400;  /* Mantém a elegância sem negrito pesado */
+    color: #333;       /* Cor cinza escura clássica */
+    white-space: nowrap; /* Impede que o título quebre linha no meio da frase */
 }
 
-/* COLEÇÃO */
+/* SEÇÃO DA COLEÇÃO (Carrossel / Galeria) */
 .colecao {
-    padding: 90px 0;
-    background: #f7f5f5;
+    padding: 90px 0;   /* Espaçamento grande em cima e embaixo para respirar o layout */
+    background: #f7f5f5; /* Fundo cinza claríssimo para diferenciar das outras partes */
 }
 
-.carousel-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.carousel-wrapper {    /* Container técnico para segurar as setas e a galeria juntas */
+    position: relative; /* Necessário para ajustar as setas em volta do conteúdo */
+    display: flex;      /* Organiza setas e carrossel em uma linha */
+    align-items: center; /* Alinha verticalmente os botões com as fotos */
+    gap: 12px;         /* Pequeno espaço entre as fotos e o botão lateral */
 }
 
 .carousel {
-    display: flex;
-    gap: 24px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-    padding: 10px 6px 18px;
-    width: 100%;
-    scrollbar-width: none;
+    display: flex;      /* Organiza os cards de estampas um do lado do outro */
+    gap: 24px;          /* Espaçamento entre cada quadradinho de produto */
+    overflow-x: auto;   /* Habilita o deslize para os lados em computadores e celulares */
+    scroll-behavior: smooth; /* Faz o "pulo" da rolagem ser suave ao clicar nos botões */
+    scroll-snap-type: x mandatory; /* Faz as fotos darem um "ímã" ao centro ao parar de rolar */
+    padding: 10px 6px 18px; /* Espaço para as sombras no topo e respiro embaixo */
+    width: 100%;       /* O carrossel ocupa toda a largura disponível no meio */
+    scrollbar-width: none; /* Esconde a barra de rolagem feia em navegadores Firefox */
 }
 
-.carousel.dragging {
-    scroll-behavior: auto;
-    scroll-snap-type: none;
+.carousel.dragging {    /* Estilo ativado via JavaScript quando você arrasta com o mouse */
+    scroll-behavior: auto; /* Desliga o movimento suave para a mão seguir o mouse na mesma hora */
+    scroll-snap-type: none; /* Desativa o "ímã" das fotos para o arraste ser livre e leve */
 }
 
 .carousel::-webkit-scrollbar {
-    display: none;
+    display: none;      /* Esconde a barra de rolagem feia no Chrome e no Microsoft Edge */
 }
 
-.carousel-btn {
-    flex: 0 0 auto;
-    width: 52px;
-    height: 52px;
-    border: none;
-    border-radius: 50%;
-    background: #ffffff;
-    color: #333;
-    font-size: 1.8rem;
-    line-height: 1;
-    cursor: pointer;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10);
-    transition: 0.25s;
-    z-index: 5;
+.carousel-btn {         /* Botões de Círculo com as setas (❮ e ❯) */
+    flex: 0 0 auto;    /* Impede que o botão seja esmagado pelo carrossel */
+    width: 52px;       /* Define a largura do círculo do botão */
+    height: 52px;      /* Define a altura, garantindo que seja um círculo perfeito */
+    border: none;      /* Tira a borda padrão do sistema */
+    border-radius: 50%; /* Transforma o quadrado em um círculo perfeito */
+    background: #ffffff; /* Fundo do botão branco puro */
+    color: #333;       /* Cor da seta cinza escuro */
+    font-size: 1.8rem; /* Aumenta o tamanho da setinha interna */
+    line-height: 1;    /* Centraliza a setinha na altura do botão */
+    cursor: pointer;   /* Transforma o mouse em mãozinha ao passar por cima */
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.10); /* Dá uma sombra suave, fazendo o botão flutuar */
+    transition: 0.25s; /* Faz os efeitos de hover demorarem um pouquinho para acontecer */
+    z-index: 5;        /* Garante que os botões fiquem acima das fotos se necessário */
 }
 
 .carousel-btn:hover {
-    transform: scale(1.05);
-    background: #c64a87;
-    color: #fff;
+    transform: scale(1.05); /* Faz o botão crescer 5% ao passar o mouse */
+    background: #c64a87;    /* Muda o fundo para rosa ao interagir */
+    color: #fff;           /* Muda a seta para branco ao interagir */
 }
 
-.scrollbar-container {
-    width: 100%;
-    height: 6px;
-    background: #e2e2e2;
-    border-radius: 10px;
-    margin-top: 30px;
-    position: relative;
-    overflow: hidden;
+/* BARRA DE ROLAGEM CUSTOMIZADA (Barra de Progresso) */
+.scrollbar-container { /* O rastro cinza que fica parado embaixo das fotos */
+    width: 100%;       /* Ocupa a largura total da galeria */
+    height: 6px;       /* Define a espessura da trilha da barra */
+    background: #e2e2e2; /* Cor cinza médio para o fundo da trilha */
+    border-radius: 10px; /* Arredonda as pontas da trilha */
+    margin-top: 30px;  /* Distância entre a galeria e essa barra */
+    position: relative; /* Base para o puxador rosa se movimentar dentro */
+    overflow: hidden;   /* Impede que o puxador saia para fora da trilha */
 }
 
-.scrollbar-thumb {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100px;
-    background: #c64a87;
-    border-radius: 10px;
-    cursor: grab;
-    transition: background 0.3s;
+.scrollbar-thumb {     /* O puxador rosa que desliza conforme você rola as fotos */
+    position: absolute; /* Coloca o puxador exatamente dentro do trilho */
+    top: 0;            /* Alinha com o início superior do trilho */
+    left: 0;           /* Começa na posição inicial à esquerda */
+    height: 100%;      /* Preenche toda a altura de 6px do trilho */
+    width: 100px;      /* Largura inicial (será mudada pelo JavaScript conforme o uso) */
+    background: #c64a87; /* Cor rosa vibrante do puxador */
+    border-radius: 10px; /* Arredonda as pontas do puxador */
+    cursor: grab;      /* Ícone de "mão aberta" indicando que você pode puxar */
+    transition: background 0.3s; /* Suaviza a troca de cor ao clicar */
 }
 
 .scrollbar-thumb:active {
-    cursor: grabbing;
-    background: #aa3d71;
+    cursor: grabbing;   /* Ícone de "mão fechada" ao segurar e arrastar a barra */
+    background: #aa3d71; /* Fica um rosa mais escuro ao ser clicado */
 }
 
+/* CARD DE PRODUTO (Cada foto da galeria) */
 .card {
-    min-width: 260px;
-    max-width: 260px;
-    background: #fff;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
-    scroll-snap-align: start;
-    transition: 0.3s;
+    min-width: 260px;   /* Define a largura mínima de cada foto para não achatarem */
+    max-width: 260px;   /* Define a largura máxima para manter o padrão visual */
+    background: #fff;   /* Fundo branco para as bordinhas do card */
+    border-radius: 16px; /* Arredonda as quinas do card, dando um visual moderno e suave */
+    overflow: hidden;    /* Esconde as pontas da imagem que sobrarem da quina arredondada */
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08); /* Sombra suave para o card "subir" da página */
+    scroll-snap-align: start; /* Faz o card travar no início da tela ao rolar */
+    transition: 0.3s;    /* Suaviza o movimento de subida e a sombra no hover */
 }
 
 .card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.16);
+    transform: translateY(-8px); /* Eleva o card em 8 pixels ao passar o mouse */
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.16); /* Aumenta a sombra, simulando que ele subiu mais alto */
 }
 
 .card-image {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    background: #f0f0f0;
-    cursor: pointer;
+    width: 100%;       /* Foto ocupa toda a largura do card */
+    aspect-ratio: 1 / 1; /* Garante que o card seja sempre um quadrado perfeito */
+    overflow: hidden;   /* Corta o excesso de imagem para manter o quadrado */
+    background: #f0f0f0; /* Cor de fundo cinza enquanto a imagem carrega */
+    cursor: pointer;    /* Indica que a foto pode ser clicada para dar zoom */
 }
 
 .card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    width: 100%;       /* Imagem preenche a largura do container */
+    height: 100%;      /* Imagem preenche a altura do container */
+    object-fit: cover;  /* Preenche o espaço sem esticar a foto, apenas cortando sobras */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Animação de zoom sofisticada */
 }
 
 .card:hover .card-image img {
-    transform: scale(1.08);
+    transform: scale(1.08); /* Aumenta a foto em 8% ao passar o mouse por cima do card */
 }
 
 .card-info {
-    padding: 14px 14px 18px;
-    text-align: center;
+    padding: 14px 14px 18px; /* Espaço para o código da estampa não encostar nas bordas */
+    text-align: center; /* Centraliza o texto do código no meio do card */
 }
 
 .card-code {
-    display: block;
-    font-size: 0.98rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: #444;
+    display: block;    /* Faz o código ocupar uma linha própria */
+    font-size: 0.98rem; /* Tamanho de texto equilibrado */
+    font-weight: 700;   /* Deixa o código em negrito para ser fácil de ler */
+    letter-spacing: 0.08em; /* Dá um espacinho entre as letras para um ar de catálogo */
+    color: #444;        /* Cor cinza escura legível */
 }
 
-/* SOBRE O ARTISTA */
+/* SEÇÃO SOBRE O ARTISTA (Biografia) */
 .sobre {
-    padding: 90px 0;
-    background: #fff;
+    padding: 90px 0;   /* Grande espaço vertical para isolar a seção */
+    background: #fff;  /* Fundo branco puro */
 }
 
-.sobre-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-    align-items: center;
+.sobre-content {        /* Organiza imagem e texto da biografia */
+    display: grid;     /* Ativa o sistema de grade para duas colunas */
+    grid-template-columns: 1fr 1fr; /* Divide o espaço em duas partes iguais */
+    gap: 50px;         /* Espaço generoso entre a foto e o texto */
+    align-items: center; /* Alinha o texto na mesma altura do meio da foto */
 }
 
 .sobre-imagem img {
-    width: 100%;
-    border-radius: 16px;
-    object-fit: cover;
-    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.08);
+    width: 100%;        /* Foto do artista ocupa o lado esquerdo dele */
+    border-radius: 16px; /* Arredonda a foto para combinar com os cards */
+    object-fit: cover;   /* Garante que o rosto apareça bem sem distorção */
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.08); /* Sombra profunda na foto */
 }
 
 .sobre-texto p {
-    font-size: 1.08rem;
-    line-height: 1.8;
-    color: #444;
-    margin-bottom: 28px;
+    font-size: 1.08rem;  /* Letras um pouco maiores para facilitar a leitura da bio */
+    line-height: 1.8;   /* Espaço entre as linhas de texto para não cansar a vista */
+    color: #444;         /* Cor confortável para leitura prolongada */
+    margin-bottom: 28px; /* Distância do texto para o botão "Saiba Mais" */
 }
 
-/* CONTATO */
+/* SEÇÃO DE CONTATO */
 .contato {
-    padding: 80px 0;
-    background: #f7f5f5;
+    padding: 80px 0;    /* Espaço vertical na seção de contatos */
+    background: #f7f5f5; /* Fundo cinza suave para fechar as seções */
 }
 
-.contact-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+.contact-grid {         /* Organiza os botões (WhatsApp, Insta, E-mail) */
+    display: grid;      /* Ativa sistema de grade */
+    grid-template-columns: repeat(3, 1fr); /* Cria 3 colunas iguais para os 3 itens */
+    gap: 24px;          /* Espaço entre um botão de contato e outro */
 }
 
 .contact-card {
-    background: #fff;
-    padding: 28px 18px;
-    border-radius: 16px;
-    text-align: center;
-    font-weight: 600;
-    color: #333;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-    transition: 0.3s;
+    background: #fff;   /* Fundo branco dos botões de contato */
+    padding: 28px 18px; /* Deixa o botão de contato alto e largo */
+    border-radius: 16px; /* Bordas arredondadas padrão do site */
+    text-align: center; /* Centraliza o nome da rede social no meio do botão */
+    font-weight: 600;   /* Texto em semi-negrito */
+    color: #333;        /* Cor clássica cinza */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06); /* Sombra leve nos botões de contato */
+    transition: 0.3s;   /* Suaviza as variações do hover */
 }
 
 .contact-card:hover {
-    transform: translateY(-4px);
-    color: #c64a87;
+    transform: translateY(-4px); /* Botão de contato sobe ao interagir */
+    color: #c64a87;    /* Letra fica rosa ao passar o mouse */
 }
 
-/* RODAPÉ */
+/* RODAPÉ (Parte final preta) */
 .site-footer {
-    background: #1a1a1a;
-    color: #fff;
+    background: #1a1a1a; /* Cor cinza quase preta para o rodapé */
+    color: #fff;         /* Texto do rodapé em branco */
 }
 
 .footer-content {
-    padding: 22px 0;
-    text-align: center;
-    font-size: 0.95rem;
+    padding: 22px 0;    /* Espaço vertical fino no rodapé */
+    text-align: center;  /* Centraliza o texto de copyright */
+    font-size: 0.95rem;  /* Letra um pouco menor por ser informação secundária */
 }
 
-/* MODAL */
+/* MODAL (Janela de Zoom Imersiva) */
 .modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.92);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    z-index: 2000;
-    padding: 30px;
+    position: fixed;    /* Faz o zoom ficar "preso" na tela, independente da rolagem */
+    inset: 0;           /* Cobre cada cantinho da tela do navegador */
+    background: rgba(0, 0, 0, 0.92); /* Fundo preto quase opaco para focar na imagem */
+    display: none;      /* Site começa com o zoom desligado */
+    align-items: center; /* Centraliza a foto de zoom verticalmente */
+    justify-content: center; /* Centraliza a foto de zoom horizontalmente */
+    flex-direction: column; /* Coloca o código da estampa abaixo da foto ampliada */
+    z-index: 2000;      /* Garante que o zoom fique por cima de absolutamente tudo */
+    padding: 30px;      /* Espaço de respiro para a foto não tocar na borda do monitor */
 }
 
 .modal.show {
-    display: flex;
+    display: flex;      /* Quando o JavaScript adiciona '.show', o zoom aparece na tela */
 }
 
 .modal-img {
-    max-width: 90%;
-    max-height: 78vh;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.55);
+    max-width: 90%;    /* Foto ampliada ocupa no máximo 90% da largura da tela */
+    max-height: 78vh;   /* Foto ampliada não passa de 78% da altura da tela */
+    border-radius: 12px; /* Pequeno arredondamento na foto grande */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.55); /* Sombra bem forte na imagem de zoom */
 }
 
 .modal-code {
-    margin-top: 18px;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 2px;
+    margin-top: 18px;   /* Distância entre a foto e o código escrito embaixo */
+    color: #fff;        /* Código escrito em branco para ler no fundo preto */
+    font-size: 18px;    /* Letra grande para fácil identificação */
+    font-weight: 700;   /* Negrito pesado no código */
+    letter-spacing: 2px; /* Espaçamento luxuoso entre as letras do código */
 }
 
-.close {
-    position: absolute;
-    top: 24px;
-    right: 30px;
-    color: #fff;
-    font-size: 38px;
-    cursor: pointer;
+.close {                /* Botão de Fechar (X) no topo do Zoom */
+    position: absolute; /* Coloca o X livremente por cima do fundo preto */
+    top: 24px;          /* Afasta 24px do topo */
+    right: 30px;        /* Afasta 30px da direita */
+    color: #fff;        /* O 'X' é branco */
+    font-size: 38px;    /* 'X' bem grande para ser fácil de clicar */
+    cursor: pointer;    /* Indica que é um botão clicável */
 }
 
-/* RESPONSIVIDADE */
-@media (max-width: 1024px) {
+/* RESPONSIVIDADE (Ajustes Automáticos para Celular e Tablet) */
+@media (max-width: 1024px) { /* Configurações para telas de Tablets ou notebooks pequenos */
     .sobre-content {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* No tablet, a imagem do artista fica em cima e o texto embaixo */
     }
 
     .section-title.left {
-        justify-content: center;
+        justify-content: center; /* Centraliza o título no tablet */
     }
 
     .sobre-texto {
-        text-align: center;
+        text-align: center; /* Centraliza o texto biográfico no tablet */
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px) { /* Configurações para Celulares comuns */
     .header-content {
-        padding: 14px 0;
-        min-height: auto;
-        flex-direction: column;
+        padding: 14px 0; /* Menu fica mais magro no celular */
+        min-height: auto; /* Remove a altura mínima fixa do topo */
+        flex-direction: column; /* Logo fica em cima e os links do menu embaixo */
     }
 
     .menu {
-        justify-content: center;
-        gap: 18px;
+        justify-content: center; /* Centraliza os links no meio do celular */
+        gap: 18px;         /* Diminui o espaço entre os nomes do menu */
     }
 
     .hero {
-        min-height: 74vh;
+        min-height: 74vh;  /* Diminui o tamanho do banner principal para não ocupar a tela toda */
     }
 
     .carousel-btn {
-        display: none;
+        display: none;      /* Esconde as setas laterais, pois no celular usamos o dedo para rolar */
     }
 
     .card {
-        min-width: 220px;
+        min-width: 220px;   /* Deixa as fotos das estampas um pouco menores no celular */
         max-width: 220px;
     }
 
     .contact-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Empilha os botões de contato um em cima do outro */
     }
 
     .section-title span {
-        max-width: 90px;
+        max-width: 90px;    /* Diminui o tamanho das linhas decorativas para caber no celular */
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px) { /* Configurações para Celulares bem pequenos */
     .logo {
-        font-size: 1.65rem;
+        font-size: 1.65rem; /* Diminui o tamanho da marca no topo */
     }
 
     .btn {
-        width: 100%;
-        max-width: 260px;
+        width: 100%;        /* Botão do banner ocupa a largura total no celular pequeno */
+        max-width: 260px;   /* Mas limita para não ficar exagerado */
     }
 
     .card {
-        min-width: 200px;
+        min-width: 200px;   /* Deixa os produtos ainda menores para caber melhor */
         max-width: 200px;
     }
 }
