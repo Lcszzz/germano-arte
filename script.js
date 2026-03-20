@@ -3,7 +3,7 @@ const estampas = [
   "ACG-016", "ACG-017", "ACG-018", "ACG-019", "ACG-019B", "ACG-020", "ACG-021A", "ACG-021B", "ACG-022", "ACG-023",
   "ACG-024", "ACG-025A", "ACG-025B", "ACG-026", "ACG-027", "ACG-028", "ACG-029", "ACG-030", "ACG-031A", "ACG-031B",
   "ACG-032A", "ACG-032B", "ACG-033", "ACG-034A", "ACG-034B", "ACG-034C", "ACG-035", "ACG-035B", "ACG-036", "ACG-037",
-  "ACG-038", "ACG-039", "ACG-040", "ACG-040B", "ACG-041", "ACG-042", "ACG-043A", "ACG-043B", "ACG-044", "ACG-045",
+  "ACG-038", "ACG-039", "ACG-040", "ACG-041", "ACG-042", "ACG-043A", "ACG-043B", "ACG-044", "ACG-045",
   "ACG-046A", "ACG-046B", "ACG-047", "ACG-048", "ACG-049", "ACG-050A", "ACG-050B", "ACG-052", "ACG-053", "ACG-056A",
   "ACG-056B", "ACG-056C", "ACG-057A", "ACG-057B", "ACG-057C", "ACG-058A", "ACG-058B", "ACG-058C", "ACG-058D", "ACG-059A",
   "ACG-059B", "ACG-060", "ACG-061", "ACG-062", "ACG-063A", "ACG-063B", "ACG-063C", "ACG-064A", "ACG-064B", "ACG-065A",
@@ -20,6 +20,7 @@ const modal = document.getElementById("modal");
 const modalImg = document.getElementById("modalImg");
 const modalCode = document.getElementById("modalCode");
 const closeModal = document.getElementById("closeModal");
+const modalWhatsappBtn = document.getElementById("modalWhatsappBtn");
 
 const scrollThumb = document.getElementById("scrollThumb");
 
@@ -27,6 +28,10 @@ function abrirModal(codigo) {
   modal.classList.add("show");
   modalImg.src = `images/${codigo}.png`;
   modalCode.textContent = codigo;
+  
+  const phoneNumber = "5511985366989";
+  const message = `Olá! Gostaria de pedir a estampa ${codigo}.`;
+  modalWhatsappBtn.href = `https://api.whatsapp.com/send/?phone=${phoneNumber}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
 }
 
 function fecharModal() {
@@ -39,12 +44,17 @@ function criarCard(codigo) {
   const card = document.createElement("article");
   card.className = "card";
 
+  const phoneNumber = "5511985366989";
+  const message = `Olá! Gostaria de solicitar a estampa ${codigo}.`;
+  const wpUrl = `https://api.whatsapp.com/send/?phone=${phoneNumber}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
+
   card.innerHTML = `
-    <div class="card-image">
+    <div class="card-image" onclick="abrirModal('${codigo}')">
       <img src="images/${codigo}.png" alt="${codigo}" loading="lazy">
     </div>
     <div class="card-info">
       <span class="card-code">${codigo}</span>
+      <a class="btn-solicitar" href="${wpUrl}" target="_blank">Solicitar essa estampa</a>
     </div>
   `;
   
@@ -176,12 +186,28 @@ document.addEventListener("DOMContentLoaded", () => {
     gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
     
     // Criação do ScrollSmoother
-    ScrollSmoother.create({
+    let smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
       content: "#smooth-content",
       smooth: 1.8, // DURAÇÃO DA SUAVIDADE EM SEGUNDOS - Altere aqui a velocidade
       effects: true,
       smoothTouch: 0.1,
+    });
+
+    // Corrige os links da página (menu e logo) para rolar com o ScrollSmoother
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function (e) {
+        const targetId = this.getAttribute("href");
+        if (targetId !== "#") {
+          const targetElem = document.querySelector(targetId);
+          if (targetElem) {
+            e.preventDefault();
+            // Pega a altura do header para compensar na rolagem
+            const headerHeight = document.querySelector(".site-header").offsetHeight;
+            smoother.scrollTo(targetElem, true, "top " + headerHeight + "px");
+          }
+        }
+      });
     });
   }
 });
