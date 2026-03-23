@@ -24,7 +24,22 @@ const modalWhatsappBtn = document.getElementById("modalWhatsappBtn");
 
 const scrollThumb = document.getElementById("scrollThumb");
 
+// Variáveis para o zoom
+let currentScale = 1;
+let isZoomDragging = false;
+let zoomStartX = 0;
+let zoomStartY = 0;
+let translateX = 0;
+let translateY = 0;
+
 function abrirModal(codigo) {
+  // Reseta o zoom ao abrir
+  currentScale = 1;
+  translateX = 0;
+  translateY = 0;
+  modalImg.style.transform = `translate(0px, 0px) scale(1)`;
+  modalImg.style.cursor = "zoom-in";
+
   modal.classList.add("show");
   modalImg.src = `images/${codigo}.png`;
   modalCode.textContent = codigo;
@@ -38,6 +53,12 @@ function fecharModal() {
   modal.classList.remove("show");
   modalImg.src = "";
   modalCode.textContent = "";
+
+  // Reseta o zoom ao fechar
+  currentScale = 1;
+  translateX = 0;
+  translateY = 0;
+  modalImg.style.transform = `translate(0px, 0px) scale(1)`;
 }
 
 function criarCard(codigo) {
@@ -98,6 +119,55 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     fecharModal();
   }
+});
+
+// Lógica de Zoom na Imagem do Modal
+modalImg.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  
+  const zoomSensitivity = 0.15;
+  const delta = e.deltaY > 0 ? -1 : 1;
+  const newScale = currentScale + delta * zoomSensitivity;
+  
+  if (newScale >= 1 && newScale <= 5) {
+    currentScale = newScale;
+    
+    // Se voltar ao tamanho original, reseta a posição
+    if (currentScale === 1) {
+      translateX = 0;
+      translateY = 0;
+    }
+    
+    modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+    modalImg.style.cursor = currentScale > 1 ? "grab" : "zoom-in";
+  }
+}, { passive: false });
+
+modalImg.addEventListener("mousedown", (e) => {
+  if (currentScale > 1) {
+    isZoomDragging = true;
+    zoomStartX = e.pageX - translateX;
+    zoomStartY = e.pageY - translateY;
+    modalImg.style.cursor = "grabbing";
+    e.preventDefault(); // previne arrasto padrão da imagem
+  }
+});
+
+window.addEventListener("mouseup", () => {
+  if (isZoomDragging) {
+    isZoomDragging = false;
+    modalImg.style.cursor = currentScale > 1 ? "grab" : "zoom-in";
+  }
+});
+
+window.addEventListener("mousemove", (e) => {
+  if (!isZoomDragging) return;
+  e.preventDefault();
+  
+  translateX = e.pageX - zoomStartX;
+  translateY = e.pageY - zoomStartY;
+  
+  modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
 });
 
 // Lógica da Barra de Rolagem Personalizada
