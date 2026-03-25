@@ -12,6 +12,35 @@ const estampas = [
   "ACG-073B", "ACG-073C", "ACG-074A", "ACG-074B", "ACG-074C", "ACG-075A", "ACG-075B", "ACG-075C"
 ];
 
+// === Header: aparece no topo, some ao rolar ===
+(function () {
+  const siteHeader = document.querySelector('.site-header');
+  const THRESHOLD = 80;
+
+  function updateHeader() {
+    const scrollY = window._smoother
+      ? window._smoother.scrollTop()
+      : window.scrollY;
+    siteHeader.classList.toggle('header-hidden', scrollY > THRESHOLD);
+  }
+
+  // GSAP ticker roda a cada frame — mais preciso com ScrollSmoother
+  if (typeof gsap !== 'undefined') {
+    gsap.ticker.add(updateHeader);
+  } else {
+    // Fallback nativo com requestAnimationFrame
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => { updateHeader(); ticking = false; });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+})();
+
+
+
 const carousel = document.getElementById("carousel");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
