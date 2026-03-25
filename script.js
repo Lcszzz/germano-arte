@@ -286,36 +286,56 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 150);
 });
 
-// === Inicialização do GSAP ScrollSmoother ===
+// === Inicialização do GSAP ScrollSmoother (com fallback nativo) ===
 document.addEventListener("DOMContentLoaded", () => {
-  // Verifica se o GSAP e o plugin ScrollSmoother foram carregados
+  const wrapper = document.getElementById("smooth-wrapper");
+  const header = document.querySelector(".site-header");
+
+  // Função de scroll com offset do header flutuante
+  function scrollToSection(targetId) {
+    const targetElem = document.querySelector(targetId);
+    if (!targetElem) return;
+    const headerHeight = header ? header.offsetHeight : 0;
+
+    if (window._smoother) {
+      // Usa ScrollSmoother se disponível
+      window._smoother.scrollTo(targetElem, true, "top " + headerHeight + "px");
+    } else {
+      // Fallback: scroll nativo suave
+      const top = targetElem.getBoundingClientRect().top + window.scrollY - headerHeight;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+  }
+
+  // Registrar click nos links do menu
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
+      const targetId = this.getAttribute("href");
+      if (targetId && targetId !== "#") {
+        e.preventDefault();
+        scrollToSection(targetId);
+      }
+    });
+  });
+
+  // Tentar inicializar ScrollSmoother
   if (typeof gsap !== "undefined" && typeof ScrollSmoother !== "undefined") {
     gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-    
-    // Criação do ScrollSmoother
-    let smoother = ScrollSmoother.create({
+    window._smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
       content: "#smooth-content",
-      smooth: 1.8, // DURAÇÃO DA SUAVIDADE EM SEGUNDOS - Altere aqui a velocidade
+      smooth: 1.8,
       effects: true,
       smoothTouch: 0.1,
     });
-
-    // Corrige os links da página (menu e logo) para rolar com o ScrollSmoother
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener("click", function (e) {
-        const targetId = this.getAttribute("href");
-        if (targetId !== "#") {
-          const targetElem = document.querySelector(targetId);
-          if (targetElem) {
-            e.preventDefault();
-            // Pega a altura do header para compensar na rolagem
-            const headerHeight = document.querySelector(".site-header").offsetHeight;
-            smoother.scrollTo(targetElem, true, "top " + headerHeight + "px");
-          }
-        }
-      });
-    });
+  } else {
+    // Fallback: desativa o wrapper fixo e usa scroll nativo
+    if (wrapper) {
+      wrapper.style.position = "relative";
+      wrapper.style.height = "auto";
+      wrapper.style.overflow = "visible";
+    }
+    document.documentElement.style.scrollBehavior = "smooth";
   }
 });
 
