@@ -4,114 +4,133 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Germano Arte</title>
+    <title>Germano Arte — Catálogo de Estampas</title>
+    <meta name="description" content="Catálogo oficial das estampas autorais de Germano Vieira. Arte em seda que transforma elegância em expressão." />
 
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
     <div id="smooth-wrapper">
         <div id="smooth-content">
+
             <header class="site-header">
-        <div class="container header-content">
-            <h1 class="logo"><a href="#home">Germano <span>Arte</span></a></h1>
+                <div class="container header-content">
+                    <h1 class="logo"><a href="#home">Germano <span>Arte</span></a></h1>
 
-            <nav class="menu">
-                <a href="#home">Home</a>
-                <a href="#colecao">Coleção</a>
-                <a href="#sobre">Sobre</a>
-                <a href="#contato">Contato</a>
-            </nav>
-        </div>
-    </header>
-
-    <section class="hero" id="home">
-        <div class="hero-overlay"></div>
-
-        <div class="hero-content">
-            <h2>Coleção Germano Arte</h2>
-            <p>Arte em seda que transforma elegância em expressão.</p>
-            <a href="#colecao" class="btn">Ver Coleção</a>
-        </div>
-    </section>
-
-    <section class="colecao" id="colecao">
-        <div class="container">
-            <div class="section-title">
-                <span></span>
-                <h2>A Coleção</h2>
-                <span></span>
-            </div>
-
-            <div class="carousel-wrapper">
-                <button class="carousel-btn prev" id="prevBtn" aria-label="Voltar">❮</button>
-                <div class="carousel" id="carousel"></div>
-                <button class="carousel-btn next" id="nextBtn" aria-label="Avançar">❯</button>
-            </div>
-            
-            <div class="scrollbar-container">
-                <div class="scrollbar-thumb" id="scrollThumb"></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="sobre" id="sobre">
-        <div class="container sobre-content">
-            <div class="sobre-imagem">
-                <img src="artista.jpg" alt="Foto do artista Germano" />
-            </div>
-
-            <div class="sobre-texto">
-                <div class="section-title left">
-                    <h2>Sobre o Artista</h2>
-                    <span></span>
+                    <nav class="menu">
+                        <a href="#home">Home</a>
+                        <a href="#colecao">Coleção</a>
+                        <a href="#sobre">Sobre</a>
+                        <a href="#contato">Contato</a>
+                    </nav>
                 </div>
+            </header>
 
-                <p>
-                    Germano Vieira, artista plástico, criador da coleção Germano Arte.
-                    Seu trabalho transforma cores, formas, texturas e referências da natureza
-                    em estampas autorais para um catálogo sofisticado e contemporâneo.
-                </p>
+            <section class="hero" id="home">
+                <div class="hero-bg"></div>
+                <div class="hero-overlay"></div>
 
-                <a href="#contato" class="btn">Saiba Mais</a>
+                <div class="hero-content">
+                    <span class="hero-eyebrow">✦ Coleção Exclusiva</span>
+                    <h2>Arte em seda,<br>forma e expressão.</h2>
+                    <p>Estampas autorais que traduzem cores, texturas e referências da natureza em um catálogo sofisticado e contemporâneo.</p>
+                    <a href="#colecao" class="btn">Ver Coleção</a>
+                </div>
+            </section>
+
+            <section class="colecao" id="colecao">
+                <div class="container">
+                    <div class="section-title">
+                        <span></span>
+                        <h2>A Coleção</h2>
+                        <span></span>
+                    </div>
+
+                    <div class="carousel-wrapper">
+                        <button class="carousel-btn prev" id="prevBtn" aria-label="Voltar">❮</button>
+                        <div class="carousel" id="carousel"></div>
+                        <button class="carousel-btn next" id="nextBtn" aria-label="Avançar">❯</button>
+                    </div>
+
+                    <div class="scrollbar-container">
+                        <div class="scrollbar-thumb" id="scrollThumb"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="sobre" id="sobre">
+                <div class="container sobre-content">
+                    <div class="sobre-imagem">
+                        <img src="artista.jpg" alt="Germano Vieira, artista plástico e criador da coleção Germano Arte" />
+                    </div>
+
+                    <div class="sobre-texto">
+                        <div class="section-title left">
+                            <h2>Sobre o Artista</h2>
+                            <span></span>
+                        </div>
+
+                        <p>
+                            Germano Vieira é artista plástico e criador da coleção Germano Arte.
+                            Seu trabalho transforma cores, formas, texturas e referências da natureza
+                            em estampas autorais para um catálogo sofisticado e contemporâneo.
+                        </p>
+
+                        <a href="#contato" class="btn">Saiba Mais</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="contato" id="contato">
+                <div class="container">
+                    <div class="section-title">
+                        <span></span>
+                        <h2>Contato</h2>
+                        <span></span>
+                    </div>
+
+                    <div class="contact-grid">
+                        <a class="contact-card" href="https://api.whatsapp.com/send/?phone=5511985366989&text&type=phone_number&app_absent=0" target="_blank">
+                            <div class="contact-card-inner">
+                                <span class="icon">💬</span>
+                                <span class="label">WhatsApp</span>
+                            </div>
+                        </a>
+                        <a class="contact-card" href="https://www.instagram.com/germanoarte.pinturas2022" target="_blank">
+                            <div class="contact-card-inner">
+                                <span class="icon">📷</span>
+                                <span class="label">Instagram</span>
+                            </div>
+                        </a>
+                        <a class="contact-card" href="https://www.germanoarte.com.br" target="_blank">
+                            <div class="contact-card-inner">
+                                <span class="icon">🌐</span>
+                                <span class="label">Site Oficial</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="site-footer">
+                <div class="container footer-content">
+                    <p>© 2025 Germano Arte — Catálogo de Estampas</p>
+                </div>
+            </footer>
+
+            <div class="modal" id="modal">
+                <span class="close" id="closeModal">&times;</span>
+                <img class="modal-img" id="modalImg" alt="Estampa ampliada">
+                <p class="modal-code" id="modalCode"></p>
+                <a id="modalWhatsappBtn" class="btn whatsapp-btn" href="#" target="_blank">Pedir pelo WhatsApp</a>
             </div>
-        </div>
-    </section>
 
-    <section class="contato" id="contato">
-        <div class="container">
-            <div class="section-title">
-                <span></span>
-                <h2>Contato</h2>
-                <span></span>
-            </div>
-
-            <div class="contact-grid">
-                <a class="contact-card" href="https://api.whatsapp.com/send/?phone=5511985366989&text&type=phone_number&app_absent=0" target="_blank">WhatsApp</a>
-                <a class="contact-card" href="https://www.instagram.com/germanoarte.pinturas2022" target="_blank">Instagram</a>
-                <a class="contact-card" href="https://www.germanoarte.com.br" target="_blank">Site</a>
-            </div>
-        </div>
-    </section>
-
-        <footer class="site-footer">
-            <div class="container footer-content">
-                <p>© 2024 Germano Arte | Catálogo de Estampas</p>
-            </div>
-        </footer>
-
-        <div class="modal" id="modal">
-            <span class="close" id="closeModal">&times;</span>
-            <img class="modal-img" id="modalImg" alt="Estampa ampliada">
-            <p class="modal-code" id="modalCode"></p>
-            <a id="modalWhatsappBtn" class="btn whatsapp-btn" href="#" target="_blank">Pedir pelo WhatsApp</a>
-        </div>
-        
         </div> <!-- Fim smooth-content -->
     </div> <!-- Fim smooth-wrapper -->
 

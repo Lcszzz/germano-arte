@@ -69,13 +69,16 @@ function criarCard(codigo) {
   const message = `Olá! Gostaria de solicitar a estampa ${codigo}.`;
   const wpUrl = `https://api.whatsapp.com/send/?phone=${phoneNumber}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
 
+  // Estrutura Double-Bezel: wrapper externo (card) > inner core (card-inner)
   card.innerHTML = `
-    <div class="card-image" onclick="abrirModal('${codigo}')">
-      <img src="images/${codigo}.png" alt="${codigo}" loading="lazy">
-    </div>
-    <div class="card-info">
-      <span class="card-code">${codigo}</span>
-      <a class="btn-solicitar" href="${wpUrl}" target="_blank">Solicitar essa estampa</a>
+    <div class="card-inner">
+      <div class="card-image" onclick="abrirModal('${codigo}')">
+        <img src="images/${codigo}.png" alt="Estampa ${codigo}" loading="lazy">
+      </div>
+      <div class="card-info">
+        <span class="card-code">${codigo}</span>
+        <a class="btn-solicitar" href="${wpUrl}" target="_blank">Solicitar essa estampa</a>
+      </div>
     </div>
   `;
   
@@ -248,6 +251,40 @@ window.addEventListener("mousemove", (e) => {
 
 // Inicializa as propriedades do thumb após a renderização dos elementos
 setTimeout(updateScrollThumbSize, 100);
+
+// === Scroll-Reveal via IntersectionObserver ===
+document.addEventListener("DOMContentLoaded", () => {
+  // Revelar seções (sobre, contato)
+  const sections = document.querySelectorAll('.sobre, .contato');
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        sectionObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  sections.forEach(el => sectionObserver.observe(el));
+
+  // Revelar cards do carrossel com stagger
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        const delay = (Array.from(entry.target.parentNode.children).indexOf(entry.target) % 6) * 60;
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, delay);
+        cardObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 50px 0px 50px' });
+
+  // Observar cards já renderizados
+  setTimeout(() => {
+    document.querySelectorAll('.card').forEach(card => cardObserver.observe(card));
+  }, 150);
+});
 
 // === Inicialização do GSAP ScrollSmoother ===
 document.addEventListener("DOMContentLoaded", () => {
